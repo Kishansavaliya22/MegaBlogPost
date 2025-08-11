@@ -18,7 +18,7 @@ class AppWriteAuth {
     this.account = new Account(this.client);
   }
 
-  async authSignUP({ email, password, name }: IAuth) {
+  async signup({ email, password, name }: IAuth) {
     try {
       const userDetail = await this.account.create(
         ID.unique(),
@@ -26,17 +26,38 @@ class AppWriteAuth {
         password,
         name
       );
-      return userDetail;
+      if (userDetail) {
+        return userDetail;
+      } else {
+        return userDetail;
+      }
     } catch (error) {
-      return error;
+      console.log("Appwrite error :: signup ::", error);
     }
   }
 
-  async authLogin({ email, password }: IAuth) {
+  async login({ email, password }: IAuth) {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      return error;
+      console.log("Appwrite error :: login ::", error);
+    }
+  }
+
+  async getCurrentUser() {
+    try {
+      return await this.account.get();
+    } catch (error) {
+      console.log("Appwrite error :: getCurrentUser :: ", error);
+    }
+    return null;
+  }
+
+  async logout() {
+    try {
+      return await this.account.deleteSessions();
+    } catch (error) {
+      console.log("Appwrite error :: logout :: ", error);
     }
   }
 }
