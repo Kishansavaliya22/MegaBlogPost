@@ -102,7 +102,7 @@ class AppWriteDB {
 
   //   file upload services
 
-  async uploadImage(file?: HTMLImageElement) {
+  async uploadImage(file?: HTMLImageElement | undefined) {
     try {
       return await this.storage.createFile(
         config.appwriteBucketId,
@@ -111,6 +111,14 @@ class AppWriteDB {
       );
     } catch (error) {
       console.log("Appwrite :: storeImage :: ", error);
+    }
+  }
+
+  async deleteImage(FileID: string) {
+    try {
+      return await this.storage.deleteFile(config.appwriteBucketId, FileID);
+    } catch (error) {
+      console.log("Appwrite :: deleteImage :: ", error);
     }
   }
 
