@@ -1,12 +1,20 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { Rootstate } from "../../store/store";
 import { NavLink } from "react-router";
 import Logo from "../Logo";
+import Button from "../Button";
+import { logout } from "../../store/authSlice";
 
 const Header = () => {
   const authStatus = useSelector((state: Rootstate) => state.status);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  };
 
   const navItems = [
     {
@@ -54,6 +62,11 @@ const Header = () => {
               ) : null
             )}
           </ul>
+        </div>
+        <div>
+          {!authStatus ? (
+            <Button btnText="Logout" onClick={() => logoutHandler()} />
+          ) : null}
         </div>
       </nav>
     </header>
