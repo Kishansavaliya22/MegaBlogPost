@@ -64,8 +64,12 @@ const Header = () => {
           </ul>
         </div>
         <div>
-          {!authStatus ? (
-            <Button btnText="Logout" onClick={() => logoutHandler()} />
+          {authStatus ? (
+            <Button
+              btnText="Logout"
+              type="button"
+              onClick={() => logoutHandler()}
+            />
           ) : null}
         </div>
       </nav>

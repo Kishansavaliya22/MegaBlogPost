@@ -1,17 +1,19 @@
-interface IInputField {
-  label: string;
-  className: string;
+import React from "react";
+
+interface IInputField extends React.InputEvent<HTMLInputElement> {
+  label?: string;
+  className?: string;
   type: string;
   name: string;
 }
 
-const InputField = ({
+const InputField: React.FC<IInputField> = ({
   label,
   className,
   type = "text",
   name,
   ...props
-}: IInputField) => {
+}) => {
   return (
     <div>
       {label && <label>{label}</label>}

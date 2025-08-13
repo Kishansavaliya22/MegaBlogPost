@@ -1,7 +1,15 @@
-const Logo = () => {
+interface ILogo {
+  className?: string;
+}
+
+const Logo = ({ className = "w-15" }: ILogo) => {
   return (
     <div>
-      <img src="src\assets\logo\logo.png" alt="Blogpost App" className="w-15" />
+      <img
+        src="src\assets\logo\logo.png"
+        alt="Blogpost App"
+        className={`${className}`}
+      />
     </div>
   );
 };

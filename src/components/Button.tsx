@@ -2,7 +2,7 @@ import type React from "react";
 
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btnText: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type: "button" | "submit" | "reset" | undefined;
   className?: string;
 }
 

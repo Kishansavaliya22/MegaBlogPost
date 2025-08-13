@@ -9,10 +9,10 @@ function Footer() {
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">
             <div className="flex h-full flex-col justify-between">
               <div className="mb-4 inline-flex items-center">
-                <Logo />
+                <Logo className="w-10" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 text-start">
                   &copy; Copyright 2025. All Rights Reserved by Kishankumar
                   Savaliya.
                 </p>
