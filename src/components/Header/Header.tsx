@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { Rootstate } from "../../store/store";
 import { NavLink } from "react-router";
+import Logo from "../Logo";
 
 const Header = () => {
   const authStatus = useSelector((state: Rootstate) => state.status);
@@ -29,7 +30,7 @@ const Header = () => {
       loginstatus: !authStatus,
     },
     {
-      name: "post",
+      name: "Post",
       location: "/post",
       loginstatus: !authStatus,
     },
@@ -43,7 +44,17 @@ const Header = () => {
             <Logo />
           </NavLink>
         </div>
-        <div></div>
+        <div>
+          <ul>
+            {navItems.map((items) =>
+              !items.loginstatus ? (
+                <button onClick={() => navigate(items.location)}>
+                  <li key={items.name}>{items.name}</li>
+                </button>
+              ) : null
+            )}
+          </ul>
+        </div>
       </nav>
     </header>
   );
