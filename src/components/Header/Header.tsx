@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import type { Rootstate } from "../../store/store";
 import { NavLink } from "react-router";
 import Logo from "../Logo";
-import Button from "../Button";
-import { logout } from "../../store/authSlice";
+import { Button } from "antd";
+import { storeLogout } from "../../store/authSlice";
 
 const Header = () => {
   const authStatus = useSelector((state: Rootstate) => state.status);
@@ -12,7 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(storeLogout());
     navigate("/");
   };
 
@@ -56,20 +56,16 @@ const Header = () => {
           <ul>
             {navItems.map((items) =>
               !items.loginstatus ? (
-                <button onClick={() => navigate(items.location)}>
+                <Button type="text" onClick={() => navigate(items.location)}>
                   <li key={items.name}>{items.name}</li>
-                </button>
+                </Button>
               ) : null
             )}
           </ul>
         </div>
         <div>
           {authStatus ? (
-            <Button
-              btnText="Logout"
-              type="button"
-              onClick={() => logoutHandler()}
-            />
+            <Button type="primary" onClick={() => logoutHandler()} />
           ) : null}
         </div>
       </nav>
