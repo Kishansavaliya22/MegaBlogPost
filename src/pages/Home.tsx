@@ -1,20 +1,26 @@
 import React from "react";
-import { Flex, Typography, Button } from "antd";
+import { Flex, Button } from "antd";
 
-const { Title } = Typography;
 const Home: React.FC = () => {
   return (
-    <Flex>
+    <Flex vertical>
       <Flex>
-        <Typography>
-          <Title>"The Secret to getting ahead is getting started."</Title>
-        </Typography>
+        <div className="text-6xl w-5xl pl-25 m-10 text-start">
+          "The Secret to getting ahead is getting started."
+        </div>
       </Flex>
-      <Flex>
-        <Flex>
-          <Button type="default" shape="round">
-            Download
-          </Button>
+      <Flex align="center" justify="space-around">
+        <Flex vertical gap="middle">
+          <Flex>
+            <Button type="default" shape="round" block>
+              Create Blog
+            </Button>
+          </Flex>
+          <Flex>
+            <Button type="default" shape="round" block>
+              Read Blog
+            </Button>
+          </Flex>
         </Flex>
         <Flex>
           <img
