@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Flex, Form, Input, Checkbox } from "antd";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 
 interface IValues {
   [key: string]: string | boolean | number;
 }
 
-const LoginPage: React.FC = () => {
+const SignUpPage: React.FC = () => {
   const onFinish = (values: IValues) => {
     console.log("Received values of form: ", values.username);
   };
@@ -20,14 +20,28 @@ const LoginPage: React.FC = () => {
         onFinish={onFinish}
       >
         <Form.Item
+          name="name"
+          rules={[{ required: true, message: "Please input your Fullname!" }]}
+        >
+          <Input prefix={<UserOutlined />} placeholder="Name" />
+        </Form.Item>
+        <Form.Item
           name="email"
-          rules={[{ required: true, message: "Please input your E-mail!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Please input your E-mail!",
+              type: "email",
+            },
+          ]}
         >
           <Input prefix={<MailOutlined />} placeholder="E-mail" />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[
+            { required: true, message: "Please input your Password!", min: 8 },
+          ]}
         >
           <Input
             prefix={<LockOutlined />}
@@ -55,4 +69,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
