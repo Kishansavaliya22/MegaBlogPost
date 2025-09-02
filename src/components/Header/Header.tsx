@@ -59,7 +59,7 @@ const Header = () => {
   return (
     <header>
       <nav className="flex flex-row justify-between m-3">
-        <div>
+        <div className="w-6xl">
           <NavLink to="/">
             <Logo />
           </NavLink>

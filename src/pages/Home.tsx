@@ -2,6 +2,7 @@ import React from "react";
 import { Flex, Button } from "antd";
 import { useSelector } from "react-redux";
 import type { Rootstate } from "../store/store";
+import { PlusOutlined, EyeOutlined } from "@ant-design/icons";
 
 const Home: React.FC = () => {
   const authStatus = useSelector((state: Rootstate) => state.status);
@@ -17,13 +18,25 @@ const Home: React.FC = () => {
         <Flex vertical gap="middle">
           {authStatus && (
             <Flex>
-              <Button type="default" shape="round" block className="p-6">
+              <Button
+                type="default"
+                shape="round"
+                block
+                className="p-6"
+                icon={<PlusOutlined />}
+              >
                 Create Blog
               </Button>
             </Flex>
           )}
           <Flex>
-            <Button type="default" shape="round" block className="p-6">
+            <Button
+              type="default"
+              shape="round"
+              block
+              className="p-6"
+              icon={<EyeOutlined />}
+            >
               Read Blog
             </Button>
           </Flex>

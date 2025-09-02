@@ -16,7 +16,7 @@ const SignUpPage: React.FC = () => {
   const [error, setError] = useState("");
 
   const onFinish = async (values: IValues) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     setError("");
     try {
       const userData = await appwriteauth.signup(values);
