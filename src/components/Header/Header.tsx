@@ -5,40 +5,52 @@ import { NavLink } from "react-router";
 import Logo from "../Logo";
 import { Button } from "antd";
 import { storeLogout } from "../../store/authSlice";
+import appwriteauth from "../../appwrite/appWriteAuth";
 
 const Header = () => {
   const authStatus = useSelector((state: Rootstate) => state.status);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     dispatch(storeLogout());
+    try {
+      appwriteauth.logout();
+    } catch (error) {
+      console.log("Appwrite :: LogoutError :: ", error);
+    }
+
     navigate("/");
   };
 
   const navItems = [
     {
       name: "Home",
+      key: "home",
       location: "/",
       loginstatus: authStatus,
     },
     {
       name: "Login",
+      key: "login",
       location: "/login",
       loginstatus: authStatus,
     },
     {
       name: "SignUp",
+      key: "signup",
       location: "/signup",
       loginstatus: authStatus,
     },
     {
       name: "BlogList",
+      key: "bloglist",
       location: "/bloglist",
       loginstatus: !authStatus,
     },
     {
       name: "Post",
+      key: "post",
       location: "/post",
       loginstatus: !authStatus,
     },
@@ -46,7 +58,7 @@ const Header = () => {
 
   return (
     <header>
-      <nav>
+      <nav className="flex flex-row justify-between m-3">
         <div>
           <NavLink to="/">
             <Logo />
@@ -57,7 +69,7 @@ const Header = () => {
             {navItems.map((items) =>
               !items.loginstatus ? (
                 <Button type="text" onClick={() => navigate(items.location)}>
-                  <li key={items.name}>{items.name}</li>
+                  <li key={items.key}>{items.name}</li>
                 </Button>
               ) : null
             )}
@@ -65,7 +77,9 @@ const Header = () => {
         </div>
         <div>
           {authStatus ? (
-            <Button type="primary" onClick={() => logoutHandler()} />
+            <Button type="primary" onClick={() => logoutHandler()}>
+              Logout
+            </Button>
           ) : null}
         </div>
       </nav>

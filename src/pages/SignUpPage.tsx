@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Flex, Form, Input, Checkbox } from "antd";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
+import appwriteauth from "../appwrite/appWriteAuth";
+import { useNavigate } from "react-router-dom";
 
 interface IValues {
-  [key: string]: string | boolean | number;
+  name: string;
+  email: string;
+  password: string;
 }
 
 const SignUpPage: React.FC = () => {
-  const onFinish = (values: IValues) => {
-    console.log("Received values of form: ", values.username);
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const onFinish = async (values: IValues) => {
+    console.log("Received values of form: ", values);
+    setError("");
+    try {
+      const userData = await appwriteauth.signup(values);
+      if (userData) {
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        console.log(error);
+      }
+    }
+
+    form.resetFields();
   };
 
   return (
     <Flex justify="center" align="center">
       <Form
-        name="login"
+        name="SignUp"
+        form={form}
         initialValues={{ remember: true }}
         style={{ maxWidth: 360 }}
         onFinish={onFinish}
@@ -60,11 +84,12 @@ const SignUpPage: React.FC = () => {
 
         <Form.Item>
           <Button block type="primary" htmlType="submit">
-            Log in
+            Sign Up
           </Button>
-          or <a href="">Register now!</a>
+          or <a href="">Login Now!</a>
         </Form.Item>
       </Form>
+      {error && <p>{error}</p>}
     </Flex>
   );
 };

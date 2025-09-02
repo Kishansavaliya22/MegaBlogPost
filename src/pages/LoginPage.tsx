@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Flex, Form, Input, Checkbox } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import appwriteauth from "../appwrite/appWriteAuth";
+import { storeLogin } from "../store/authSlice";
 
 interface IValues {
-  [key: string]: string | boolean | number;
+  email: string;
+  password: string;
 }
 
 const LoginPage: React.FC = () => {
-  const onFinish = (values: IValues) => {
-    console.log("Received values of form: ", values.username);
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+
+  const onFinish = async (values: IValues) => {
+    console.log("Received values of form: ", values);
+    setError("");
+    try {
+      const userData = await appwriteauth.login(values);
+      if (userData) {
+        const userData = await appwriteauth.getCurrentUser();
+        if (userData) dispatch(storeLogin(userData));
+        navigate("/");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        console.log(error);
+      }
+    }
   };
 
   return (
     <Flex justify="center" align="center">
       <Form
         name="login"
+        form={form}
         initialValues={{ remember: true }}
         style={{ maxWidth: 360 }}
         onFinish={onFinish}
@@ -51,6 +77,7 @@ const LoginPage: React.FC = () => {
           or <a href="">Register now!</a>
         </Form.Item>
       </Form>
+      {error && <p>{error}</p>}
     </Flex>
   );
 };

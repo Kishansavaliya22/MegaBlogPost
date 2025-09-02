@@ -102,7 +102,7 @@ class AppWriteDB {
 
   //   file upload services
 
-  async uploadImage(file?: HTMLImageElement | undefined) {
+  async uploadImage(file: File) {
     try {
       return await this.storage.createFile(
         config.appwriteBucketId,

@@ -1,6 +1,6 @@
 /* @import "~antd/dist/antd.css"; */
 #root {
-  width: 100%;
+  width: auto;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
