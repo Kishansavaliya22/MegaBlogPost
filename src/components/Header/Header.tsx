@@ -43,15 +43,15 @@ const Header = () => {
       loginstatus: authStatus,
     },
     {
-      name: "BlogList",
-      key: "bloglist",
-      location: "/bloglist",
+      name: "BlogPost",
+      key: "blogpost",
+      location: "/blogpost",
       loginstatus: !authStatus,
     },
     {
-      name: "Post",
-      key: "post",
-      location: "/post",
+      name: "CreateBlog",
+      key: "createblog",
+      location: "/createblog",
       loginstatus: !authStatus,
     },
   ];

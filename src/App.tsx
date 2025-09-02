@@ -23,6 +23,7 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Flex, Form, Input, Checkbox } from "antd";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import appwriteauth from "../appwrite/appWriteAuth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IValues {
   name: string;
@@ -42,6 +42,7 @@ const SignUpPage: React.FC = () => {
         initialValues={{ remember: true }}
         style={{ maxWidth: 360 }}
         onFinish={onFinish}
+        className="border rounded-md p-5"
       >
         <Form.Item
           name="name"
@@ -86,7 +87,7 @@ const SignUpPage: React.FC = () => {
           <Button block type="primary" htmlType="submit">
             Sign Up
           </Button>
-          or <a href="">Login Now!</a>
+          or <Link to="/login">Login Now!</Link>
         </Form.Item>
       </Form>
       {error && <p>{error}</p>}

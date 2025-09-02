@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Flex, Form, Input, Checkbox } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import appwriteauth from "../appwrite/appWriteAuth";
 import { storeLogin } from "../store/authSlice";
@@ -44,6 +44,7 @@ const LoginPage: React.FC = () => {
         initialValues={{ remember: true }}
         style={{ maxWidth: 360 }}
         onFinish={onFinish}
+        className="border rounded-md p-5"
       >
         <Form.Item
           name="email"
@@ -74,7 +75,7 @@ const LoginPage: React.FC = () => {
           <Button block type="primary" htmlType="submit">
             Log in
           </Button>
-          or <a href="">Register now!</a>
+          or <Link to="/signup">Register now!</Link>
         </Form.Item>
       </Form>
       {error && <p>{error}</p>}

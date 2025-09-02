@@ -1,7 +1,11 @@
 import React from "react";
 import { Flex, Button } from "antd";
+import { useSelector } from "react-redux";
+import type { Rootstate } from "../store/store";
 
 const Home: React.FC = () => {
+  const authStatus = useSelector((state: Rootstate) => state.status);
+
   return (
     <Flex vertical>
       <Flex>
@@ -11,13 +15,15 @@ const Home: React.FC = () => {
       </Flex>
       <Flex align="center" justify="space-around">
         <Flex vertical gap="middle">
+          {authStatus && (
+            <Flex>
+              <Button type="default" shape="round" block className="p-6">
+                Create Blog
+              </Button>
+            </Flex>
+          )}
           <Flex>
-            <Button type="default" shape="round" block>
-              Create Blog
-            </Button>
-          </Flex>
-          <Flex>
-            <Button type="default" shape="round" block>
+            <Button type="default" shape="round" block className="p-6">
               Read Blog
             </Button>
           </Flex>
