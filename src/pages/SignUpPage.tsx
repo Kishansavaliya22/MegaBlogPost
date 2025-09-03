@@ -44,6 +44,7 @@ const SignUpPage: React.FC = () => {
         onFinish={onFinish}
         className="border rounded-md p-5"
       >
+        {error && <p className="text-xs p-2 mb-2 text-red-400">{error}</p>}
         <Form.Item
           name="name"
           rules={[{ required: true, message: "Please input your Fullname!" }]}
@@ -90,7 +91,6 @@ const SignUpPage: React.FC = () => {
           or <Link to="/login">Login Now!</Link>
         </Form.Item>
       </Form>
-      {error && <p>{error}</p>}
     </Flex>
   );
 };

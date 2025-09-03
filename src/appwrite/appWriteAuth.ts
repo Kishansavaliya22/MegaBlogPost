@@ -40,7 +40,8 @@ class AppWriteAuth {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      console.log("Appwrite error :: login ::", error);
+      // console.log("Appwrite error :: login ::", error);
+      return { loginError: true, message: error };
     }
   }
 

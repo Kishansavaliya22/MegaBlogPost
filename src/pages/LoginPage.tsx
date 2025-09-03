@@ -22,7 +22,11 @@ const LoginPage: React.FC = () => {
     setError("");
     try {
       const userData = await appwriteauth.login(values);
-      if (userData) {
+      // console.log("userData Error: ", userData);
+
+      if ("loginError" in userData) {
+        setError("Invalid credentials. Please check the email and password");
+      } else {
         const userData = await appwriteauth.getCurrentUser();
         if (userData) dispatch(storeLogin(userData));
         navigate("/");
@@ -31,7 +35,7 @@ const LoginPage: React.FC = () => {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        console.log(error);
+        console.log("Login Page Error: ", error);
       }
     }
   };
@@ -46,15 +50,24 @@ const LoginPage: React.FC = () => {
         onFinish={onFinish}
         className="border rounded-md p-5"
       >
+        {error && <p className="text-xs p-2 mb-2 text-red-400">{error}</p>}
         <Form.Item
           name="email"
-          rules={[{ required: true, message: "Please input your E-mail!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Please input your E-mail!",
+              type: "email",
+            },
+          ]}
         >
           <Input prefix={<MailOutlined />} placeholder="E-mail" />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[
+            { required: true, message: "Please input your Password!", min: 8 },
+          ]}
         >
           <Input
             prefix={<LockOutlined />}
@@ -78,7 +91,6 @@ const LoginPage: React.FC = () => {
           or <Link to="/signup">Register now!</Link>
         </Form.Item>
       </Form>
-      {error && <p>{error}</p>}
     </Flex>
   );
 };
